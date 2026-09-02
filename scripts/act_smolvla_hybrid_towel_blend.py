@@ -484,7 +484,7 @@ def main() -> int:
             print("Current measured pose is held.", flush=True)
         print(
             f"HYBRID_COMPLETE accepted_smol={accepted} rejected_smol={rejected} "
-            f"act_fallback={fallback}",
+            f"guard_fallback={fallback}",
             flush=True,
         )
         return 0

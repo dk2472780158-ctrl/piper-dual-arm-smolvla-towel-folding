@@ -90,11 +90,11 @@ def smol_trust(
     if raw_step_joint > a.smol_raw_step_limit:
         return False, f"hard:raw_step={raw_step_joint:.6f}", float("inf")
     if raw_disagree_joint > a.smol_raw_policy_disagreement:
-        return False, f"hard:raw_ACT_disagreement={raw_disagree_joint:.6f}", float("inf")
+        return False, f"hard:raw_guard_disagreement={raw_disagree_joint:.6f}", float("inf")
     disagree_joint = float(np.max(np.abs(candidate[ARM] - act_reference[ARM])))
     step_joint = float(np.max(np.abs(candidate[ARM] - previous[ARM])))
     if disagree_joint > a.policy_disagreement:
-        return False, f"soft:ACT_disagreement={disagree_joint:.6f}", disagree_joint
+        return False, f"soft:guard_disagreement={disagree_joint:.6f}", disagree_joint
     if step_joint > a.joint_step_limit:
         return False, f"soft:step={step_joint:.6f}", disagree_joint
     return True, "accepted", disagree_joint
