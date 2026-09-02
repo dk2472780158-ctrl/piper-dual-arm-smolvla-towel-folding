@@ -2,9 +2,9 @@
 
 中文 | English
 
-**SmolVLA（SmolVLM2-500M）驱动**的双 Piper 双臂真实机器人叠毛巾项目：SmolVLA 在三路 RealSense 观测下，通过**连续 authority 塑形机制**主导手臂轨迹，在安全边界内完成 HQ60 毛巾折叠。**多次完整 750 步真机运行全部 `status=0`**，轨迹丝滑、无安全停机。
+**SmolVLA（SmolVLM2-500M）驱动**的双 Piper 双臂真实机器人叠毛巾项目：SmolVLA 在三路 RealSense 观测下，通过**连续 authority 塑形机制**主导手臂轨迹，在安全边界内完成双 Piper 毛巾折叠。**多次完整 750 步真机运行全部 `status=0`**，轨迹丝滑、无安全停机。
 
-A real-robot towel-folding project driven by **SmolVLA (SmolVLM2-500M)** on dual Piper arms. SmolVLA leads the arm trajectory under a **continuous authority-shaping mechanism** bounded by safety checks, completing HQ60 towel folding under three RealSense cameras. **Multiple full 750-step runs finished with `status=0`** — smooth trajectory, zero safety stops.
+A real-robot towel-folding project driven by **SmolVLA (SmolVLM2-500M)** on dual Piper arms. SmolVLA leads the arm trajectory under a **continuous authority-shaping mechanism** bounded by safety checks, completing dual-Piper towel folding under three RealSense cameras. **Multiple full 750-step runs finished with `status=0`** — smooth trajectory, zero safety stops.
 
 ## Caution
 
@@ -36,7 +36,7 @@ Keep the emergency stop ready during real-robot operation. Never automatically d
 
 ### 已完成 ✅
 
-- **SmolVLA 模型训练**：SmolVLM2-500M 从已有 50k checkpoint 热启动训练 5k 步（`smolvla_hq60_newonly_from50k_b8_5k_v2`）；
+- **SmolVLA 模型训练**：SmolVLM2-500M 从已有 50k checkpoint 热启动训练 5k 步（`smolvla_newonly_from50k_b8_5k_v2`）；
 - **SmolVLA RTC 真机推理**：异步实时通道（Real-Time Channel）引导式推理，端到端部署到双 Piper 机械臂；
 - **连续 authority 塑形**：`target = anchor + authority × (Smol_EMA − anchor)`，SmolVLA 在安全边界内主导手臂轨迹；
 - **7 层防抖栈**：消除切换抖动，真机轨迹丝滑（`joint_step` 大多 0.002–0.03 rad）；
@@ -46,7 +46,7 @@ Keep the emergency stop ready during real-robot operation. Never automatically d
 
 | 指标 | 数值 |
 |---|---|
-| 任务 | HQ60 叠毛巾（双 Piper 双臂） |
+| 任务 | 双 Piper 叠毛巾 |
 | 主导策略 | SmolVLA（SmolVLM2-500M，VLM 驱动的 VLA） |
 | 观测 | 3× RealSense D435i RGB + 28 维双臂状态 |
 | 动作 | 14 维绝对关节位置目标 |
@@ -113,7 +113,7 @@ SmolVLA 是视觉-语言-动作（VLA）策略，核心是 **SmolVLM2-500M** 视
 
 - **热启动**：SmolVLA 从已有 50k 步 checkpoint 继续训练（而非从零），显著缩短收敛时间；
 - **训练量**：5k 步，batch size 8；
-- **checkpoint**：`smolvla_hq60_newonly_from50k_b8_5k_v2/checkpoints/005000`；
+- **checkpoint**：`smolvla_newonly_from50k_b8_5k_v2/checkpoints/005000`；
 - 训练基于高质量示范子集，避免低质量轨迹污染策略。
 
 > 数据集与 checkpoint 均不进入本仓库，按第 13 节管理。
@@ -365,6 +365,7 @@ downloaded_models/  datasets/  backups/
 
 - https://github.com/huggingface/lerobot（SmolVLA、RTC 推理框架）
 - https://github.com/GrahamZen/lerobot_piper（Piper 部署参考）
+- https://github.com/dk2472780158-ctrl/piper-dual-arm-act-towel-folding（同双 Piper 平台的 ACT 稳定基线项目）
 
 请遵循上游 LICENSE（本仓库沿用 LeRobot 的 Apache License 2.0）。
 
@@ -376,7 +377,7 @@ downloaded_models/  datasets/  backups/
 
 ### Done ✅
 
-- **SmolVLA training**: SmolVLM2-500M warm-started from a 50k checkpoint, trained 5k steps (`smolvla_hq60_newonly_from50k_b8_5k_v2`);
+- **SmolVLA training**: SmolVLM2-500M warm-started from a 50k checkpoint, trained 5k steps (`smolvla_newonly_from50k_b8_5k_v2`);
 - **SmolVLA RTC real-robot inference**: async Real-Time Channel guided inference deployed end-to-end on dual Piper arms;
 - **Continuous authority shaping**: `target = anchor + authority × (Smol_EMA − anchor)` — SmolVLA leads the trajectory within safety bounds;
 - **7-layer jitter-reduction stack**: eliminated switch jitter; `joint_step` mostly 0.002–0.03 rad;
@@ -386,7 +387,7 @@ downloaded_models/  datasets/  backups/
 
 | Metric | Value |
 |---|---|
-| Task | HQ60 towel folding (dual Piper arms) |
+| Task | Dual-Piper towel folding |
 | Leading policy | SmolVLA (SmolVLM2-500M, VLM-driven VLA) |
 | Observation | 3× RealSense D435i RGB + 28-dim dual-arm state |
 | Action | 14-dim absolute joint-position targets |
@@ -447,7 +448,7 @@ This project integrates SmolVLA into the LeRobot framework for config, training,
 
 - **Warm start**: resume from a 50k-step checkpoint instead of from scratch — much faster convergence;
 - **Training**: 5k steps, batch size 8;
-- **Checkpoint**: `smolvla_hq60_newonly_from50k_b8_5k_v2/checkpoints/005000`;
+- **Checkpoint**: `smolvla_newonly_from50k_b8_5k_v2/checkpoints/005000`;
 - Trained on the high-quality subset to avoid low-quality trajectory contamination.
 
 ## 5. RTC real-time inference pipeline
@@ -550,5 +551,6 @@ No datasets, checkpoints, or rollout videos in this repo (`outputs/`, `experimen
 
 - https://github.com/huggingface/lerobot (SmolVLA, RTC inference)
 - https://github.com/GrahamZen/lerobot_piper (Piper deployment reference)
+- https://github.com/dk2472780158-ctrl/piper-dual-arm-act-towel-folding (ACT stable baseline on the same dual-Piper platform)
 
 See upstream LICENSE (this repo follows LeRobot's Apache License 2.0).

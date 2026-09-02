@@ -12,7 +12,7 @@ RESET_SCRIPT="$ACT_ROOT/reset_piper_pose.py"
 HYBRID_SCRIPT="$SMOL_ROOT/scripts/act_smolvla_hybrid_towel_blend.py"
 
 ACT_MODEL="$ACT_ROOT/outputs/train/towel_fold_act_v4_scratch60k/checkpoints/040000/pretrained_model"
-EXPERIMENT_ROOT=/home/databall_02/VLA/experiments/smolvla_hq60_newonly_from50k_b8_5k_v2
+EXPERIMENT_ROOT=/home/databall_02/VLA/experiments/smolvla_newonly_from50k_b8_5k_v2
 SMOL_MODEL="$EXPERIMENT_ROOT/checkpoints/005000/pretrained_model"
 RUN_ID="$(date +%Y%m%d_%H%M%S)"
 RUN_DIR="$EXPERIMENT_ROOT/blend_one_click_runs_v2/$RUN_ID"
