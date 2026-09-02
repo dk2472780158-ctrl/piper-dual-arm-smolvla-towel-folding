@@ -259,17 +259,17 @@ authority 混合。
 
 - **ACT 打底权重**(`towel_fold_act_v4_040000`,v4 / 040000 = last):
   <https://huggingface.co/1goldexperience1/towel_fold_act_v4_040000>
+- **SmolVLA 塑形策略**(`towel_fold_smolvla_shaping_005000`,HQ60 微调,5k 步):
+  <https://huggingface.co/1goldexperience1/towel_fold_smolvla_shaping_005000>
 - **数据集**(120 条真实双臂 demo,85,187 帧):
   <https://huggingface.co/datasets/1goldexperience1/towel_fold_dataset_aug_v1>
-
-SmolVLA 塑形 checkpoint 目前仍在真机本地;其实验目录在 `r750.sh` 中引用。
 
 ## 状态与边界
 
 - [x] 真机 750 步完整跑通,`status=0`
 - [x] 第 300 步起连续 authority 混合生效(非二进制切换)
 - [x] 每一步都执行安全限制(幅度 + slew + 夹爪归属)
-- [ ] SmolVLA 塑形权重发布到 Hugging Face *(目前真机本地)*
+- [x] SmolVLA 塑形权重发布到 Hugging Face(`towel_fold_smolvla_shaping_005000`)
 - [ ] 其他毛巾 / 物体位姿下的混合基准测试
 
 **安全操作:** 运行前清空工作台、给双臂支撑、人站到急停旁。先确认三路相机画面正常再开始

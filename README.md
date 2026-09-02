@@ -272,17 +272,17 @@ Data and weights are **never committed to git**. Get them from Hugging Face:
 
 - **ACT base checkpoint** (`towel_fold_act_v4_040000`, v4 / 040000 = last) —
   <https://huggingface.co/1goldexperience1/towel_fold_act_v4_040000>
+- **SmolVLA shaping policy** (`towel_fold_smolvla_shaping_005000`, HQ60 fine-tune, 5k steps) —
+  <https://huggingface.co/1goldexperience1/towel_fold_smolvla_shaping_005000>
 - **Dataset** (120 real dual-arm demos, 85,187 frames) —
   <https://huggingface.co/datasets/1goldexperience1/towel_fold_dataset_aug_v1>
-
-The SmolVLA shaping checkpoint is rig-local for now; its experiment dir is referenced in `r750.sh`.
 
 ## Status & boundaries
 
 - [x] 750-step real-robot run reaches `status=0`
 - [x] Continuous authority blend active from step 300 (no binary handoff)
 - [x] Safety limits (magnitude + slew + gripper ownership) enforced at every step
-- [ ] SmolVLA shaping weights published to Hugging Face *(rig-local today)*
+- [x] SmolVLA shaping weights published to Hugging Face (`towel_fold_smolvla_shaping_005000`)
 - [ ] Blend benchmarks on other towels / object poses
 
 **Operate safely:** clear the worktable, support both arms, and stand by the e-stop before any run.
